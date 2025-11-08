@@ -19,7 +19,7 @@
     nil
     nixd
     bash-language-server
-    docker-language-server
+    # docker-language-server
     docker-buildx
     lldb
 
@@ -46,7 +46,7 @@
     enable = true;
     settings = {
       user = {
-        name = "degarti";
+        name = "Janson Degartil";
         email = "outragedline@proton.me";
       };
     };

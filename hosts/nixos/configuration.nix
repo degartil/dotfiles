@@ -40,7 +40,7 @@
     settings = {
       default_session = {
         command = "${pkgs.niri}/bin/niri-session";
-        user = "degarti";
+        user = "degartil";
       };
     };
   };
@@ -82,10 +82,10 @@
 
   programs.dconf.enable = true;
 
-  home-manager.users."degarti" = {
+  home-manager.users."degartil" = {
     imports = [ ../../modules/home.nix ];
   };
-  users.users.degarti = {
+  users.users.degartil = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
