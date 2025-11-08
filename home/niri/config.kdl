@@ -76,7 +76,7 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
 
-    Mod+B { spawn "brave"; }
+    Mod+B { spawn "zen"; }
     Mod+T { spawn "Telegram"; }
     Mod+Shift+Q repeat=false { close-window; }
 

@@ -23,7 +23,6 @@
     obs-studio
     ueberzugpp
     telegram-desktop
-    brave
     zathura
 
     # eww
