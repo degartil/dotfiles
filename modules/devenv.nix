@@ -47,7 +47,7 @@
     settings = {
       user = {
         name = "Janson Degartil";
-        email = "outragedline@proton.me";
+        email = "degartil@proton.me";
       };
     };
     signing = {
