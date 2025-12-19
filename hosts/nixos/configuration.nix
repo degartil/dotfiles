@@ -13,7 +13,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-label/CRYPTONIX";
+  boot.initrd.systemd.enable = true;
+  boot.initrd.luks.devices."root" = {
+    device = "/dev/disk/by-label/CRYPTONIX";
+    keyFile = "/dev/disk/by-partlabel/NIXOS_KEY";
+    keyFileSize = 4096;
+    keyFileTimeout = 3;
+  };
 
   zramSwap = {
     enable = true;
