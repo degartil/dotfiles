@@ -3,7 +3,7 @@
 {
   imports = [
     ./devenv.nix
-    ./alacrittty.nix
+    ./alacritty.nix
   ];
 
   home.packages = with pkgs; [
