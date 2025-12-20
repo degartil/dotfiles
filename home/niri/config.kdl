@@ -1,6 +1,5 @@
 spawn-at-startup "waypaper" "--random" "--backend" "swww" "--folder" "~/.config/wallpapers"
 spawn-at-startup "polkit-kde-agent-1"
-spawn-sh-at-startup "sh ~/.config/nixos/home/eww/launch.sh"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"

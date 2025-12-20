@@ -14,8 +14,8 @@
     wl-clipboard
     swww
     git-lfs
-    networkmanagerapplet
     fastfetch
+    onefetch
     waypaper
     grimblast
     playerctl
@@ -25,11 +25,7 @@
     telegram-desktop
     zathura
 
-    # eww
     brightnessctl
-    socat
-    jq
-    inotify-tools
     pamixer
 
     niri
@@ -46,11 +42,6 @@
     recursive = true;
   };
 
-  home.sessionPath = [
-    "~/.local/bin"
-    "~/.cargo/bin"
-  ];
-
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
   };
@@ -65,11 +56,6 @@
   services.mako.enable = true;
   services.swayidle.enable = true;
   services.polkit-gnome.enable = true;
-
-  programs.eww = {
-    enable = true;
-    configDir = ../home/eww;
-  };
 
   gtk = {
     enable = true;
