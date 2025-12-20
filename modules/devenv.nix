@@ -83,16 +83,6 @@
       mkd = "mkdir";
       zj = "zellij";
     };
-
-    extraConfig = ''
-      def nixos-update [host: string] {
-          sudo nix flake update;
-          sudo nixos-rebuild switch --flake ~/.nixos#($host)
-          git add flake.lock
-          git commit -m "Update nixos"
-          git push
-      }
-    '';
   };
 
   programs.yazi = {

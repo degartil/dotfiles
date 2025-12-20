@@ -88,7 +88,7 @@
 
   programs.dconf.enable = true;
 
-  home-manager.users."degartil" = {
+  home-manager.users.degartil = {
     imports = [ ../../modules/home.nix ];
   };
   users.users.degartil = {
