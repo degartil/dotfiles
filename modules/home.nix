@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./devenv.nix
+    ./core.nix
     ./alacritty.nix
   ];
 
