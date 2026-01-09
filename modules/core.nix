@@ -137,11 +137,11 @@
 
       keys = {
         normal = {
-          z = "move_next_word_start";
+          z = "move_prev_word_start";
           "C-s" = ":write";
           w = "move_next_sub_word_start";
           b = "move_prev_sub_word_start";
-          e = "move_next_sub_word_end";
+          e = "move_next_word_end";
         };
 
         select = {
