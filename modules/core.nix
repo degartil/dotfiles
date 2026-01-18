@@ -10,6 +10,8 @@
     clippy
     rust-analyzer
     fd
+    ripgrep
+    fzf
     bear
     gemini-cli
 
