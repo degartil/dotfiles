@@ -5,6 +5,7 @@
     dust
     p7zip
     cargo
+    cargo-watch
     rustc
     rustfmt
     clippy
