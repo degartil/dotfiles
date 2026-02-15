@@ -22,6 +22,9 @@
     nil
     nixd
     bash-language-server
+    sqlfluff
+    sqls
+
     # docker-language-server
     docker-buildx
     lldb
@@ -181,8 +184,23 @@
           auto-format = true;
         }
 
+        {
+          name = "sql";
+          language-servers = [ "sqls" ];
+          formatter = {
+            command = "sqlfluff";
+            args = [
+              "format"
+              "-"
+            ];
+          };
+          auto-format = true;
+        }
       ];
       language-server = {
+        sqls = {
+          command = "sqls";
+        };
         "rust-analyzer" = {
           config = {
             check = {

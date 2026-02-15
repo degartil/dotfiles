@@ -104,6 +104,10 @@
     shell = pkgs.nushell;
   };
 
+  environment.shells = [
+    pkgs.nushell
+  ];
+
   users.defaultUserShell = pkgs.nushell;
 
   system.stateVersion = "25.05";

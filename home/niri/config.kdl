@@ -1,5 +1,4 @@
 spawn-at-startup "waypaper" "--random" "--backend" "swww" "--folder" "~/.config/wallpapers"
-spawn-at-startup "polkit-kde-agent-1"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
