@@ -204,6 +204,7 @@
         "rust-analyzer" = {
           config = {
             check = {
+              command = "clippy";
               allTargets = true;
             };
             cargo = {
