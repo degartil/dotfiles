@@ -41,15 +41,7 @@
       };
     };
   };
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.niri}/bin/niri-session";
-        user = "degartil";
-      };
-    };
-  };
+  services.displayManager.gdm.enable = true;
   programs.niri.enable = true;
 
   time.timeZone = "America/Sao_Paulo";
@@ -110,5 +102,5 @@
 
   users.defaultUserShell = pkgs.nushell;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 }
