@@ -52,7 +52,7 @@
     enable = true;
     settings = {
       user = {
-        name = "Janson Degartil";
+        name = "Degartil";
         email = "degartil@proton.me";
       };
     };
