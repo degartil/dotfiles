@@ -4,6 +4,7 @@
   imports = [
     ./core.nix
     ./alacritty.nix
+    ./helix.nix
   ];
 
   home.packages = with pkgs; [
@@ -37,25 +38,31 @@
     helix.enable = false;
   };
 
-  home.file.".config/wallpapers" = {
-    source = ../home/wallpapers;
-    recursive = true;
+  home = {
+    file.".config/wallpapers" = {
+      source = ../home/wallpapers;
+      recursive = true;
+    };
+
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
   };
 
-  home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
-
-  xdg.configFile."niri".source = ../home/niri;
-  xdg.portal = {
-    enable = true;
-    configPackages = [ pkgs.gnome-session ];
-    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+  xdg = {
+    configFile."niri".source = ../home/niri;
+    portal = {
+      enable = true;
+      configPackages = [ pkgs.gnome-session ];
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    };
   };
   programs.swaylock.enable = true;
-  services.mako.enable = true;
-  services.swayidle.enable = true;
-  services.polkit-gnome.enable = true;
+  services = {
+    mako.enable = true;
+    swayidle.enable = true;
+    polkit-gnome.enable = true;
+  };
 
   gtk = {
     enable = true;
@@ -64,7 +71,6 @@
       package = pkgs.papirus-icon-theme;
     };
   };
-  services.syncthing.enable = true;
 
   home.stateVersion = "26.05";
 }

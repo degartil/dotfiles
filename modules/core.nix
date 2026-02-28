@@ -16,201 +16,77 @@
     bear
     gemini-cli
 
-    # helix
-    taplo
-    clang
-    nil
-    nixd
-    bash-language-server
-    sqlfluff
     sqls
-
-    # docker-language-server
-    docker-buildx
     lldb
-
-    # specific things
     cmake
     gnumake
   ];
 
-  home.file.".cargo/config.toml".text = ''
-    [target.'cfg(target_os = "linux")']
-    linker = "${pkgs.clang}/bin/clang"
-    rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
-  '';
+  home.file = {
+    ".config/zellij".source = ../home/zellij;
+    ".cargo/config.toml".text = ''
+      [target.'cfg(target_os = "linux")']
+      linker = "${pkgs.clang}/bin/clang"
+      rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
+    '';
+  };
 
   programs = {
     lazygit.enable = true;
-    lazydocker.enable = true;
+    zellij.enable = true;
     btop.enable = true;
     bat.enable = true;
     eza.enable = true;
-  };
 
-  programs.git = {
-    enable = true;
-    settings = {
-      user = {
-        name = "Degartil";
-        email = "degartil@proton.me";
-      };
-    };
-    signing = {
-      signByDefault = true;
-      key = "734D5FE03B99B29F";
-    };
-  };
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      "side-by-side" = true;
-      navigate = true;
-    };
-  };
-
-  programs.nushell = {
-    enable = true;
-    settings = {
-      show_banner = false;
-      buffer_editor = "hx";
-    };
-    envFile.text = ''
-      $env.PROMPT_COMMAND = { || $"($env.PWD | path basename)" }
-      $env.PROMPT_COMMAND_RIGHT = ""
-      $env.EDITOR = "hx"
-      $env.VISUAL = "hx"
-    '';
-    shellAliases = {
-      la = "ls -la";
-      cat = "bat";
-      lg = "lazygit";
-      mkd = "mkdir";
-      zj = "zellij";
-    };
-  };
-
-  programs.yazi = {
-    enable = true;
-    settings = {
-      mgr = {
-        show_hidden = true;
-      };
-    };
-  };
-
-  programs.zellij.enable = true;
-  home.file.".config/zellij".source = ../home/zellij;
-
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme = "gruvbox";
-      editor = {
-        line-number = "relative";
-        cursorline = true;
-        end-of-line-diagnostics = "hint";
-        indent-heuristic = "tree-sitter";
-
-        lsp = {
-          display-inlay-hints = true;
-        };
-
-        file-picker = {
-          hidden = false;
-          git-global = false;
-        };
-
-        soft-wrap = {
-          enable = true;
-        };
-
-        cursor-shape = {
-          insert = "bar";
-          normal = "block";
-          select = "underline";
-        };
-
-        indent-guides = {
-          render = true;
-        };
-
-        inline-diagnostics = {
-          cursor-line = "warning";
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Degartil";
+          email = "degartil@proton.me";
         };
       };
-
-      keys = {
-        normal = {
-          z = "move_prev_word_start";
-          "C-s" = ":write";
-          w = "move_next_sub_word_start";
-          b = "move_prev_sub_word_start";
-          e = "move_next_word_end";
-        };
-
-        select = {
-          w = "extend_next_sub_word_start";
-          b = "extend_prev_sub_word_start";
-          e = "extend_next_sub_word_end";
-        };
-
-        insert = {
-          "C-space" = "completion";
-        };
+      signing = {
+        signByDefault = true;
+        key = "734D5FE03B99B29F";
       };
     };
 
-    languages = {
-      language = [
-        {
-          name = "toml";
-          formatter = {
-            command = "taplo";
-            args = [
-              "fmt"
-              "-"
-            ];
-          };
-          auto-format = true;
-        }
-        {
-          name = "nix";
-          formatter = {
-            command = "nixfmt";
-            args = [ "%sh{pwd}/%{buffer_name}" ];
-          };
-          auto-format = true;
-        }
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        "side-by-side" = true;
+        navigate = true;
+      };
+    };
 
-        {
-          name = "sql";
-          language-servers = [ "sqls" ];
-          formatter = {
-            command = "sqlfluff";
-            args = [
-              "format"
-              "-"
-            ];
-          };
-          auto-format = true;
-        }
-      ];
-      language-server = {
-        sqls = {
-          command = "sqls";
-        };
-        "rust-analyzer" = {
-          config = {
-            check = {
-              command = "clippy";
-              allTargets = true;
-            };
-            cargo = {
-              allFeatures = true;
-            };
-          };
+    nushell = {
+      enable = true;
+      settings = {
+        show_banner = false;
+        buffer_editor = "hx";
+      };
+      envFile.text = ''
+        $env.PROMPT_COMMAND = { || $"($env.PWD | path basename)" }
+        $env.PROMPT_COMMAND_RIGHT = ""
+        $env.EDITOR = "hx"
+        $env.VISUAL = "hx"
+      '';
+      shellAliases = {
+        la = "ls -la";
+        cat = "bat";
+        lg = "lazygit";
+        mkd = "mkdir";
+        zj = "zellij";
+      };
+    };
+
+    yazi = {
+      enable = true;
+      settings = {
+        mgr = {
+          show_hidden = true;
         };
       };
     };

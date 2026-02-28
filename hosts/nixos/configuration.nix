@@ -10,15 +10,21 @@
     "flakes"
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.systemd.enable = true;
-  boot.initrd.luks.devices."root" = {
-    device = "/dev/disk/by-label/CRYPTONIX";
-    keyFile = "/dev/disk/by-partlabel/NIXOS_KEY";
-    keyFileSize = 4096;
-    keyFileTimeout = 3;
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+    initrd = {
+      systemd.enable = true;
+      luks.devices."root" = {
+        device = "/dev/disk/by-label/CRYPTONIX";
+        keyFile = "/dev/disk/by-partlabel/NIXOS_KEY";
+        keyFileSize = 4096;
+        keyFileTimeout = 3;
+      };
+    };
   };
 
   zramSwap = {
@@ -41,45 +47,62 @@
       };
     };
   };
-  services.displayManager.gdm.enable = true;
-  programs.niri.enable = true;
+
+  services = {
+    displayManager.gdm.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+  };
+
+  programs = {
+    niri.enable = true;
+    dconf.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+  };
 
   time.timeZone = "America/Sao_Paulo";
 
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
+  hardware = {
+    graphics.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
-
-  hardware.graphics.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
   networking.networkmanager.enable = true;
 
   security.sudo-rs.enable = true;
-  environment.systemPackages = with pkgs; [
-    helix
-    wget
-    git
-    git-lfs
-    uutils-coreutils-noprefix
-    bluetui
-  ];
 
-  environment.sessionVariables = {
-    EDITOR = "hx";
-    VISUAL = "hx";
+  environment = {
+    systemPackages = with pkgs; [
+      helix
+      wget
+      git
+      git-lfs
+      uutils-coreutils-noprefix
+      bluetui
+    ];
+    shells = [
+      pkgs.nushell
+    ];
+
+    sessionVariables = {
+      EDITOR = "hx";
+      VISUAL = "hx";
+    };
   };
-  virtualisation.docker.enable = true;
 
-  programs.gnupg.agent = {
+  virtualisation.podman = {
     enable = true;
-    enableSSHSupport = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
   };
-
-  programs.dconf.enable = true;
-
   home-manager.users.degartil = {
     imports = [ ../../modules/home.nix ];
   };
@@ -95,10 +118,6 @@
     ];
     shell = pkgs.nushell;
   };
-
-  environment.shells = [
-    pkgs.nushell
-  ];
 
   users.defaultUserShell = pkgs.nushell;
 
