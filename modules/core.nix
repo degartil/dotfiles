@@ -79,6 +79,7 @@
         lg = "lazygit";
         mkd = "mkdir";
         zj = "zellij";
+        nd = "nix develop -c nu";
       };
     };
 

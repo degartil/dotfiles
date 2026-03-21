@@ -17,20 +17,11 @@
         line-number = "relative";
         cursorline = true;
         end-of-line-diagnostics = "hint";
-        indent-heuristic = "tree-sitter";
-
-        lsp = {
-          display-inlay-hints = true;
-        };
-
         file-picker = {
           hidden = false;
           git-global = false;
         };
-
-        soft-wrap = {
-          enable = true;
-        };
+        soft-wrap.enable = true;
 
         cursor-shape = {
           insert = "bar";
@@ -38,13 +29,9 @@
           select = "underline";
         };
 
-        indent-guides = {
-          render = true;
-        };
+        indent-guides.render = true;
 
-        inline-diagnostics = {
-          cursor-line = "warning";
-        };
+        inline-diagnostics.cursor-line = "warning";
       };
 
       keys = {
