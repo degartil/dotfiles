@@ -15,23 +15,8 @@
       theme = "gruvbox";
       editor = {
         line-number = "relative";
-        cursorline = true;
-        end-of-line-diagnostics = "hint";
-        file-picker = {
-          hidden = false;
-          git-global = false;
-        };
         soft-wrap.enable = true;
-
-        cursor-shape = {
-          insert = "bar";
-          normal = "block";
-          select = "underline";
-        };
-
         indent-guides.render = true;
-
-        inline-diagnostics.cursor-line = "warning";
       };
 
       keys = {
