@@ -7,6 +7,11 @@
     nixd
     bash-language-server
     sqlfluff
+    rustfmt
+    clippy
+    rust-analyzer
+    lldb
+    sqls
   ];
 
   programs.helix = {

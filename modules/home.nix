@@ -2,35 +2,8 @@
 
 {
   imports = [
-    ./core.nix
     ./alacritty.nix
     ./helix.nix
-  ];
-
-  home.packages = with pkgs; [
-    xdg-desktop-portal-gnome
-    pavucontrol
-    rofi
-    alacritty
-    wl-clipboard
-    swww
-    git-lfs
-    fastfetch
-    onefetch
-    waypaper
-    grimblast
-    playerctl
-
-    obs-studio
-    ueberzugpp
-    telegram-desktop
-    zathura
-
-    brightnessctl
-    pamixer
-
-    niri
-    xwayland-satellite
   ];
 
   stylix.targets = {
@@ -39,9 +12,57 @@
   };
 
   home = {
-    file.".config/wallpapers" = {
-      source = ../home/wallpapers;
-      recursive = true;
+    packages = with pkgs; [
+      xdg-desktop-portal-gnome
+      pavucontrol
+      rofi
+      alacritty
+      wl-clipboard
+      swww
+      git-lfs
+      fastfetch
+      onefetch
+      waypaper
+      grimblast
+      playerctl
+
+      cargo-watch
+      rustc
+      cargo
+
+      obs-studio
+      telegram-desktop
+      zathura
+
+      brightnessctl
+      pamixer
+
+      niri
+      xwayland-satellite
+
+      cmake
+      gnumake
+
+      dust
+      p7zip
+      fd
+      ripgrep
+      fzf
+      bear
+      gemini-cli
+    ];
+
+    file = {
+      ".config/wallpapers" = {
+        source = ../home/wallpapers;
+        recursive = true;
+      };
+      ".config/zellij".source = ../home/zellij;
+      ".cargo/config.toml".text = ''
+        [target.'cfg(target_os = "linux")']
+        linker = "${pkgs.clang}/bin/clang"
+        rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
+      '';
     };
 
     sessionVariables = {
@@ -57,7 +78,70 @@
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
-  programs.swaylock.enable = true;
+
+  programs = {
+    swaylock.enable = true;
+    lazygit.enable = true;
+    zellij.enable = true;
+    btop.enable = true;
+    bat.enable = true;
+    eza.enable = true;
+
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Degartil";
+          email = "degartil@proton.me";
+        };
+      };
+      signing = {
+        signByDefault = true;
+        key = "734D5FE03B99B29F";
+      };
+    };
+
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        "side-by-side" = true;
+        navigate = true;
+      };
+    };
+
+    nushell = {
+      enable = true;
+      settings = {
+        show_banner = false;
+        buffer_editor = "hx";
+      };
+      envFile.text = ''
+        $env.PROMPT_COMMAND = { || $"($env.PWD | path basename)" }
+        $env.PROMPT_COMMAND_RIGHT = ""
+        $env.EDITOR = "hx"
+        $env.VISUAL = "hx"
+      '';
+      shellAliases = {
+        la = "ls -la";
+        cat = "bat";
+        lg = "lazygit";
+        mkd = "mkdir";
+        zj = "zellij";
+        nd = "nix develop -c nu";
+      };
+    };
+
+    yazi = {
+      enable = true;
+      settings = {
+        mgr = {
+          show_hidden = true;
+        };
+      };
+    };
+  };
+
   services = {
     mako.enable = true;
     swayidle.enable = true;
