@@ -18,7 +18,7 @@
       rofi
       alacritty
       wl-clipboard
-      swww
+      awww
       git-lfs
       fastfetch
       onefetch

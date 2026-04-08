@@ -1,4 +1,4 @@
-spawn-at-startup "waypaper" "--random" "--backend" "swww" "--folder" "~/.config/wallpapers"
+spawn-at-startup "waypaper" "--random" "--backend" "awww" "--folder" "~/.config/wallpapers"
 
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -185,7 +185,7 @@ gestures {
 
 
 layer-rule {
-    match namespace="swww-daemon"
+    match namespace="awww-daemon"
     place-within-backdrop true
 }
 
