@@ -4,27 +4,20 @@
   imports = [
     ./alacritty.nix
     ./helix.nix
+    ./niri.nix
   ];
 
   stylix.targets = {
     zellij.enable = false;
     helix.enable = false;
+    rofi.enable = false;
   };
 
   home = {
     packages = with pkgs; [
-      xdg-desktop-portal-gnome
-      pavucontrol
-      rofi
-      alacritty
-      wl-clipboard
-      awww
       git-lfs
       fastfetch
       onefetch
-      waypaper
-      grimblast
-      playerctl
 
       cargo-watch
       rustc
@@ -33,12 +26,6 @@
       obs-studio
       telegram-desktop
       zathura
-
-      brightnessctl
-      pamixer
-
-      niri
-      xwayland-satellite
 
       cmake
       gnumake
@@ -53,10 +40,6 @@
     ];
 
     file = {
-      ".config/wallpapers" = {
-        source = ../home/wallpapers;
-        recursive = true;
-      };
       ".config/zellij".source = ../home/zellij;
       ".cargo/config.toml".text = ''
         [target.'cfg(target_os = "linux")']
@@ -70,22 +53,13 @@
     };
   };
 
-  xdg = {
-    configFile."niri".source = ../home/niri;
-    portal = {
-      enable = true;
-      configPackages = [ pkgs.gnome-session ];
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
-    };
-  };
-
   programs = {
-    swaylock.enable = true;
     lazygit.enable = true;
     zellij.enable = true;
     btop.enable = true;
     bat.enable = true;
     eza.enable = true;
+    thunderbird.enable = true;
 
     git = {
       enable = true;
@@ -140,12 +114,6 @@
         };
       };
     };
-  };
-
-  services = {
-    mako.enable = true;
-    swayidle.enable = true;
-    polkit-gnome.enable = true;
   };
 
   gtk = {
