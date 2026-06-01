@@ -49,7 +49,16 @@
   };
 
   services = {
-    displayManager.gdm.enable = true;
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd niri-session";
+          user = "greeter";
+        };
+      };
+    };
+    gnome.gnome-keyring.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -77,8 +86,10 @@
   };
   networking.networkmanager.enable = true;
 
-  security.sudo-rs.enable = true;
-
+  security = {
+    sudo-rs.enable = true;
+    pam.services.greetd.enableGnomeKeyring = true;
+  };
   environment = {
     systemPackages = with pkgs; [
       helix
@@ -87,6 +98,7 @@
       git-lfs
       uutils-coreutils-noprefix
       bluetui
+      podman-compose
     ];
     shells = [
       pkgs.nushell
