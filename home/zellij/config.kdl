@@ -116,7 +116,7 @@ keybinds clear-defaults=true {
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
-        bind "Ctrl q" { Quit; }
+        bind "Ctrl Alt q" { Quit; }
     }
     shared_except "locked" "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
@@ -194,6 +194,6 @@ disable_websocket_server true
 theme "gruvbox-dark"
 auto_layouts false
 auto_session false
-mouse_mode false
+mouse_mode true
 ui_config_reload false
 on_force_close "quit"
