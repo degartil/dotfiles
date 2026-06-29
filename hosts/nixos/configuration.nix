@@ -35,6 +35,7 @@
 
   stylix = {
     enable = true;
+    enableReleaseChecks = false;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     fonts = {
@@ -99,6 +100,8 @@
       uutils-coreutils-noprefix
       bluetui
       podman-compose
+      qemu
+      virt-manager
     ];
     shells = [
       pkgs.nushell
@@ -110,10 +113,14 @@
     };
   };
 
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-    defaultNetwork.settings.dns_enabled = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
   home-manager.users.degartil = {
     imports = [ ../../modules/home.nix ];
@@ -127,11 +134,10 @@
       "power"
       "video"
       "audio"
+      "libvirtd"
     ];
     shell = pkgs.nushell;
   };
-
-  users.defaultUserShell = pkgs.nushell;
 
   system.stateVersion = "26.05";
 }

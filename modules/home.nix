@@ -7,6 +7,8 @@
     ./niri.nix
   ];
 
+  stylix.enableReleaseChecks = false;
+
   stylix.targets = {
     zellij.enable = false;
     helix.enable = false;
@@ -14,6 +16,7 @@
   };
 
   home = {
+    enableNixpkgsReleaseCheck = false;
     packages = with pkgs; [
       git-lfs
       fastfetch
@@ -36,7 +39,7 @@
       ripgrep
       fzf
       bear
-      gemini-cli
+      kdePackages.kdenlive
     ];
 
     file = {
@@ -54,19 +57,17 @@
   };
 
   programs = {
-    lazygit.enable = true;
     zellij.enable = true;
     btop.enable = true;
     bat.enable = true;
     eza.enable = true;
     thunderbird.enable = true;
-
     git = {
       enable = true;
       settings = {
         user = {
           name = "Degartil";
-          email = "degartil@proton.me";
+          email = "degartil@gmail.com";
         };
       };
       signing = {
@@ -95,11 +96,21 @@
         $env.PROMPT_COMMAND_RIGHT = ""
         $env.EDITOR = "hx"
         $env.VISUAL = "hx"
+        def nr [
+            package: string
+            ...rest
+        ] {
+            let flake_ref = if ($package | str contains "#") {
+                $package
+            } else {
+                $"nixpkgs#($package)"
+            }    
+            nix run $flake_ref ...$rest
+        }
       '';
       shellAliases = {
         la = "ls -la";
         cat = "bat";
-        lg = "lazygit";
         mkd = "mkdir";
         zj = "zellij";
         nd = "nix develop -c nu";
