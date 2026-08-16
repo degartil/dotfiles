@@ -29,9 +29,14 @@
       obs-studio
       telegram-desktop
       zathura
+      nautilus
 
       cmake
       gnumake
+      vlc
+      ripdrag
+      opencode
+      libreoffice-fresh
 
       dust
       p7zip
