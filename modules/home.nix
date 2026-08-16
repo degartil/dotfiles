@@ -85,7 +85,6 @@
       enable = true;
       enableGitIntegration = true;
       options = {
-        "side-by-side" = true;
         navigate = true;
       };
     };
@@ -114,7 +113,8 @@
         }
       '';
       shellAliases = {
-        la = "ls -la";
+        ls = "eza";
+        la = "eza -la";
         cat = "bat";
         mkd = "mkdir";
         zj = "zellij";
