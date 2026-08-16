@@ -59,6 +59,18 @@
         };
       };
     };
+    upower = {
+      enable = true;
+
+      usePercentageForPolicy = true;
+
+      percentageLow = 50;
+      percentageCritical = 30;
+      percentageAction = 25;
+
+      allowRiskyCriticalPowerAction = true;
+      criticalPowerAction = "Suspend";
+    };
     gnome.gnome-keyring.enable = true;
     pipewire = {
       enable = true;
