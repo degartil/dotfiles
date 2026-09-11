@@ -21,22 +21,20 @@
       git-lfs
       fastfetch
       onefetch
-
-      cargo-watch
-      rustc
-      cargo
+      rustup
 
       obs-studio
       telegram-desktop
       zathura
       nautilus
 
+      brave-origin
       cmake
       gnumake
       vlc
       ripdrag
       opencode
-      libreoffice-fresh
+      libreoffice
 
       dust
       p7zip
