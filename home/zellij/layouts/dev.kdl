@@ -1,0 +1,25 @@
+layout {
+    default_tab_template {
+        children
+
+        pane size=1 borderless=true {
+            plugin location="compact-bar" {
+                tooltip "Alt ?"
+            }
+        }
+    }
+
+    tab name="workspace" focus=true {
+        pane
+    }
+
+    tab name="agents" {
+        pane command="codex" start_suspended=true
+    }
+
+    tab name="runners" {
+        pane stacked=true {
+            pane
+        }
+    }
+}

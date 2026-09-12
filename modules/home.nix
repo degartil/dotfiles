@@ -115,7 +115,14 @@
         la = "eza -la";
         cat = "bat";
         mkd = "mkdir";
-        zj = "zellij";
+        z = "zellij";
+        za = "zellij attach -c";
+        zr = "zellij run --";
+        zrf = "zellij run --floating --";
+        zrs = "zellij run --stacked --";
+        zrn = "zellij run --no-focus --";
+        zc = "zellij run --stacked -- codex";
+        zoc = "zellij run --stacked -- opencode";
         nd = "nix develop -c nu";
       };
     };

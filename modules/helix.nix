@@ -9,6 +9,7 @@
     sqlfluff
     lldb
     sqls
+    kdlfmt
   ];
 
   programs.helix = {
