@@ -2,7 +2,6 @@
 {
   home = {
     packages = with pkgs; [
-      xdg-desktop-portal-gnome
       waypaper
       wl-clipboard-rs
       pavucontrol
@@ -31,12 +30,272 @@
     polkit-gnome.enable = true;
   };
 
-  xdg = {
-    configFile."niri".source = ../home/niri;
-    portal = {
-      enable = true;
-      configPackages = [ pkgs.gnome-session ];
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+  wayland.windowManager.niri = {
+    enable = true;
+    systemd.enable = false;
+    portalPackage = null;
+
+    settings = {
+      spawn-at-startup = [
+        "waypaper"
+        "--random"
+        "--backend"
+        "awww"
+        "--folder"
+        "~/.config/wallpapers"
+      ];
+
+      environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
+
+      input = {
+        keyboard.xkb = {
+          layout = "br";
+          variant = "abnt2";
+        };
+
+        touchpad = {
+          tap = { };
+          dwt = { };
+          scroll-method = "two-finger";
+        };
+
+        warp-mouse-to-focus = { };
+      };
+
+      layout = {
+        gaps = 10;
+        center-focused-column = "never";
+
+        preset-column-widths._children = [
+          { proportion = 0.33333; }
+          { proportion = 0.5; }
+          { proportion = 0.66667; }
+        ];
+
+        default-column-width = { };
+        background-color = "transparent";
+
+        focus-ring = {
+          width = 2;
+          active-color = "#6CB6D9aa";
+          inactive-color = "#505050";
+        };
+      };
+
+      hotkey-overlay.skip-at-startup = { };
+
+      prefer-no-csd = { };
+
+      screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+
+      window-rule = {
+        geometry-corner-radius = 10;
+        clip-to-geometry = true;
+      };
+
+      binds = {
+        "Mod+Shift+Slash".show-hotkey-overlay = { };
+
+        "Mod+Return" = {
+          _props.hotkey-overlay-title = "Open a Terminal: alacritty";
+          spawn = [ "alacritty" ];
+        };
+
+        "Mod+D" = {
+          _props.hotkey-overlay-title = "Run an Application: rofi";
+          spawn = [
+            "rofi"
+            "-show"
+            "drun"
+          ];
+        };
+
+        "Super+Alt+L" = {
+          _props.hotkey-overlay-title = "Lock the Screen: swaylock";
+          spawn = [ "swaylock" ];
+        };
+
+        "XF86AudioRaiseVolume" = {
+          _props.allow-when-locked = true;
+          spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
+        };
+
+        "XF86AudioLowerVolume" = {
+          _props.allow-when-locked = true;
+          spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+        };
+
+        "XF86AudioMute" = {
+          _props.allow-when-locked = true;
+          spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        };
+
+        "XF86AudioMicMute" = {
+          _props.allow-when-locked = true;
+          spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+        };
+
+        "XF86AudioPlay".spawn = [
+          "playerctl"
+          "play-pause"
+        ];
+
+        "XF86AudioNext".spawn = [
+          "playerctl"
+          "next"
+        ];
+
+        "XF86AudioPrev".spawn = [
+          "playerctl"
+          "previous"
+        ];
+
+        "XF86MonBrightnessUp" = {
+          _props.allow-when-locked = true;
+          spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "+10%"
+          ];
+        };
+
+        "XF86MonBrightnessDown" = {
+          _props.allow-when-locked = true;
+          spawn = [
+            "brightnessctl"
+            "--class=backlight"
+            "set"
+            "10%-"
+          ];
+        };
+
+        "Mod+O" = {
+          _props.repeat = false;
+          toggle-overview = { };
+        };
+
+        "Mod+B".spawn = [ "zen" ];
+        "Mod+T".spawn = [ "Telegram" ];
+
+        "Mod+Shift+Q" = {
+          _props.repeat = false;
+          close-window = { };
+        };
+
+        "Mod+Left".focus-column-left = { };
+        "Mod+Down".focus-window-down = { };
+        "Mod+Up".focus-window-up = { };
+        "Mod+Right".focus-column-right = { };
+
+        "Mod+H".focus-column-left = { };
+        "Mod+J".focus-window-down = { };
+        "Mod+K".focus-window-up = { };
+        "Mod+L".focus-column-right = { };
+
+        "Mod+Ctrl+Left".move-column-left = { };
+        "Mod+Ctrl+Down".move-window-down = { };
+        "Mod+Ctrl+Up".move-window-up = { };
+        "Mod+Ctrl+Right".move-column-right = { };
+
+        "Mod+Ctrl+H".move-column-left = { };
+        "Mod+Ctrl+J".move-window-down = { };
+        "Mod+Ctrl+K".move-window-up = { };
+        "Mod+Ctrl+L".move-column-right = { };
+
+        "Mod+Shift+Left".focus-monitor-left = { };
+        "Mod+Shift+Down".focus-monitor-down = { };
+        "Mod+Shift+Up".focus-monitor-up = { };
+        "Mod+Shift+Right".focus-monitor-right = { };
+
+        "Mod+Shift+H".focus-monitor-left = { };
+        "Mod+Shift+J".focus-monitor-down = { };
+        "Mod+Shift+K".focus-monitor-up = { };
+        "Mod+Shift+L".focus-monitor-right = { };
+
+        "Mod+Page_Down".focus-workspace-down = { };
+        "Mod+Page_Up".focus-workspace-up = { };
+        "Mod+U".focus-workspace-down = { };
+        "Mod+I".focus-workspace-up = { };
+
+        "Mod+Ctrl+Page_Down".move-column-to-workspace-down = { };
+        "Mod+Ctrl+Page_Up".move-column-to-workspace-up = { };
+        "Mod+Ctrl+U".move-column-to-workspace-down = { };
+        "Mod+Ctrl+I".move-column-to-workspace-up = { };
+
+        "Mod+Shift+U".move-workspace-down = { };
+        "Mod+Shift+I".move-workspace-up = { };
+
+        "Mod+1".focus-workspace = 1;
+        "Mod+2".focus-workspace = 2;
+        "Mod+3".focus-workspace = 3;
+        "Mod+4".focus-workspace = 4;
+        "Mod+5".focus-workspace = 5;
+        "Mod+6".focus-workspace = 6;
+        "Mod+7".focus-workspace = 7;
+        "Mod+8".focus-workspace = 8;
+        "Mod+9".focus-workspace = 9;
+
+        "Mod+Shift+1".move-column-to-workspace = 1;
+        "Mod+Shift+2".move-column-to-workspace = 2;
+        "Mod+Shift+3".move-column-to-workspace = 3;
+        "Mod+Shift+4".move-column-to-workspace = 4;
+        "Mod+Shift+5".move-column-to-workspace = 5;
+        "Mod+Shift+6".move-column-to-workspace = 6;
+        "Mod+Shift+7".move-column-to-workspace = 7;
+        "Mod+Shift+8".move-column-to-workspace = 8;
+        "Mod+Shift+9".move-column-to-workspace = 9;
+
+        "Mod+Tab".focus-workspace-previous = { };
+
+        "Mod+BracketLeft".consume-or-expel-window-left = { };
+        "Mod+BracketRight".consume-or-expel-window-right = { };
+
+        "Mod+R".switch-preset-column-width = { };
+        "Mod+Shift+R".switch-preset-window-height = { };
+        "Mod+Ctrl+R".reset-window-height = { };
+
+        "Mod+F".maximize-column = { };
+        "Mod+Shift+F".fullscreen-window = { };
+        "Mod+Ctrl+F".expand-column-to-available-width = { };
+
+        "Mod+C".center-column = { };
+        "Mod+Ctrl+C".center-visible-columns = { };
+
+        "Mod+Minus".set-column-width = "-10%";
+        "Mod+Equal".set-column-width = "+10%";
+
+        "Mod+Shift+Minus".set-window-height = "-10%";
+        "Mod+Shift+Equal".set-window-height = "+10%";
+
+        "Mod+V".toggle-window-floating = { };
+        "Mod+Shift+V".switch-focus-between-floating-and-tiling = { };
+
+        "Mod+W".toggle-column-tabbed-display = { };
+
+        "Print".screenshot = { };
+        "Ctrl+Print".screenshot-screen = { };
+        "Alt+Print".screenshot-window = { };
+
+        "Mod+Escape" = {
+          _props.allow-inhibiting = false;
+          toggle-keyboard-shortcuts-inhibit = { };
+        };
+
+        "Mod+Shift+E".quit = { };
+        "Ctrl+Alt+Delete".quit = { };
+
+        "Mod+Shift+P".power-off-monitors = { };
+      };
+
+      gestures.hot-corners.off = { };
+
+      layer-rule = {
+        match._props.namespace = "awww-daemon";
+        place-within-backdrop = true;
+      };
+
+      overview.backdrop-color = "transparent";
     };
   };
 }

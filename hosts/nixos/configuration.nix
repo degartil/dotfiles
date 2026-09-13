@@ -71,7 +71,6 @@
       allowRiskyCriticalPowerAction = true;
       criticalPowerAction = "Suspend";
     };
-    gnome.gnome-keyring.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -81,7 +80,6 @@
 
   programs = {
     niri.enable = true;
-    dconf.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
