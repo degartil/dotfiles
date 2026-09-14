@@ -12,7 +12,11 @@
 
   boot = {
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        editor = false;
+        configurationLimit = 10;
+      };
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_latest;
@@ -35,20 +39,59 @@
 
   stylix = {
     enable = true;
-    enableReleaseChecks = false;
+    autoEnable = false;
     polarity = "dark";
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    icons = {
+      enable = true;
+
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus";
+    };
+
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+
     fonts = {
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
       };
+
+      sansSerif = {
+        package = pkgs.inter;
+        name = "Inter";
+      };
+
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+
       sizes = {
         terminal = 9;
+        applications = 10;
+        desktop = 10;
+        popups = 10;
       };
     };
-  };
 
+    targets = {
+      console.enable = true;
+      font-packages.enable = true;
+    };
+  };
   services = {
 
     displayManager.dms-greeter = {
@@ -130,8 +173,11 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
-  home-manager.users.degartil = {
-    imports = [ ../../modules/home.nix ];
+  home-manager = {
+    useGlobalPkgs = true;
+    users.degartil = {
+      imports = [ ../../modules/home.nix ];
+    };
   };
   users.users.degartil = {
     isNormalUser = true;

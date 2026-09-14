@@ -11,9 +11,10 @@
   stylix.enableReleaseChecks = false;
 
   stylix.targets = {
-    zellij.enable = false;
-    helix.enable = false;
-    rofi.enable = false;
+    alacritty.enable = true;
+    bat.enable = true;
+    btop.enable = true;
+    yazi.enable = true;
   };
 
   home = {
@@ -57,16 +58,6 @@
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
-    };
-
-    pointerCursor = {
-      enable = true;
-
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 24;
-
-      gtk.enable = true;
     };
   };
 
@@ -148,13 +139,6 @@
     };
   };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-  };
 
   home.stateVersion = "26.05";
 }

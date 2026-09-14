@@ -21,9 +21,6 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -34,7 +31,6 @@
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           ./hosts/nixos/configuration.nix
-          ./hosts/nixos/hardware-configuration.nix
         ];
       };
 

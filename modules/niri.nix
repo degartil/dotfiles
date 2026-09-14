@@ -25,10 +25,6 @@ in
     settings = {
       environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
-      cursor = {
-        xcursor-theme = "Bibata-Modern-Ice";
-        xcursor-size = 24;
-      };
       input = {
         keyboard.xkb = {
           layout = "br";
