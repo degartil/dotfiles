@@ -1,52 +1,34 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+
+let
+  exe = lib.getExe;
+in
 {
   home = {
     packages = with pkgs; [
-      waypaper
       wl-clipboard-rs
-      pavucontrol
-      playerctl
-      brightnessctl
-      pamixer
-      xwayland-satellite
     ];
+
     file.".config/wallpapers" = {
       source = ../home/wallpapers;
       recursive = true;
     };
   };
 
-  programs = {
-    rofi = {
-      enable = true;
-      theme = "gruvbox-dark";
-    };
-    swaylock.enable = true;
-  };
-  services = {
-    awww.enable = true;
-    mako.enable = true;
-    swayidle.enable = true;
-    polkit-gnome.enable = true;
-  };
-
   wayland.windowManager.niri = {
     enable = true;
+
+    # NixOS programs.niri already owns these.
     systemd.enable = false;
     portalPackage = null;
 
     settings = {
-      spawn-at-startup = [
-        "waypaper"
-        "--random"
-        "--backend"
-        "awww"
-        "--folder"
-        "~/.config/wallpapers"
-      ];
-
       environment.ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
+      cursor = {
+        xcursor-theme = "Bibata-Modern-Ice";
+        xcursor-size = 24;
+      };
       input = {
         keyboard.xkb = {
           layout = "br";
@@ -77,12 +59,8 @@
 
         focus-ring = {
           width = 2;
-          active-color = "#6CB6D9aa";
-          inactive-color = "#505050";
         };
       };
-
-      hotkey-overlay.skip-at-startup = { };
 
       prefer-no-csd = { };
 
@@ -94,89 +72,122 @@
       };
 
       binds = {
-        "Mod+Shift+Slash".show-hotkey-overlay = { };
+        "Mod+Return".spawn = [
+          (exe pkgs.alacritty)
+        ];
 
-        "Mod+Return" = {
-          _props.hotkey-overlay-title = "Open a Terminal: alacritty";
-          spawn = [ "alacritty" ];
-        };
+        "Mod+N".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "notepad"
+          "toggle"
+        ];
 
-        "Mod+D" = {
-          _props.hotkey-overlay-title = "Run an Application: rofi";
-          spawn = [
-            "rofi"
-            "-show"
-            "drun"
-          ];
-        };
+        "Mod+D".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "spotlight"
+          "toggle"
+        ];
 
-        "Super+Alt+L" = {
-          _props.hotkey-overlay-title = "Lock the Screen: swaylock";
-          spawn = [ "swaylock" ];
-        };
+        "Super+Alt+L".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "lock"
+          "lockAndOutputsOff"
+        ];
 
-        "XF86AudioRaiseVolume" = {
-          _props.allow-when-locked = true;
-          spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+";
-        };
+        "XF86AudioRaiseVolume".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "audio"
+          "increment"
+          "10"
+        ];
 
-        "XF86AudioLowerVolume" = {
-          _props.allow-when-locked = true;
-          spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
-        };
+        "XF86AudioLowerVolume".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "audio"
+          "decrement"
+          "10"
+        ];
 
-        "XF86AudioMute" = {
-          _props.allow-when-locked = true;
-          spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-        };
+        "XF86AudioMute".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "audio"
+          "mute"
+        ];
 
-        "XF86AudioMicMute" = {
-          _props.allow-when-locked = true;
-          spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-        };
+        "XF86AudioMicMute".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "mic"
+          "mute"
+        ];
 
         "XF86AudioPlay".spawn = [
-          "playerctl"
-          "play-pause"
+          "dms"
+          "ipc"
+          "call"
+          "mpris"
+          "playPause"
         ];
 
         "XF86AudioNext".spawn = [
-          "playerctl"
+          "dms"
+          "ipc"
+          "call"
+          "mpris"
           "next"
         ];
 
         "XF86AudioPrev".spawn = [
-          "playerctl"
+          "dms"
+          "ipc"
+          "call"
+          "mpris"
           "previous"
         ];
 
-        "XF86MonBrightnessUp" = {
-          _props.allow-when-locked = true;
-          spawn = [
-            "brightnessctl"
-            "--class=backlight"
-            "set"
-            "+10%"
-          ];
-        };
+        "XF86MonBrightnessUp".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "brightness"
+          "increment"
+          "10"
+        ];
 
-        "XF86MonBrightnessDown" = {
-          _props.allow-when-locked = true;
-          spawn = [
-            "brightnessctl"
-            "--class=backlight"
-            "set"
-            "10%-"
-          ];
-        };
+        "XF86MonBrightnessDown".spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "brightness"
+          "decrement"
+          "10"
+        ];
 
         "Mod+O" = {
           _props.repeat = false;
           toggle-overview = { };
         };
 
-        "Mod+B".spawn = [ "zen" ];
-        "Mod+T".spawn = [ "Telegram" ];
+        "Mod+B".spawn = [
+          (exe pkgs.brave-origin)
+        ];
+
+        "Mod+T".spawn = [
+          (exe pkgs.telegram-desktop)
+        ];
 
         "Mod+Shift+Q" = {
           _props.repeat = false;
@@ -291,11 +302,18 @@
       gestures.hot-corners.off = { };
 
       layer-rule = {
-        match._props.namespace = "awww-daemon";
+        match._props.namespace = "^quickshell$";
         place-within-backdrop = true;
       };
 
       overview.backdrop-color = "transparent";
     };
+
+    extraConfig = ''
+      include optional=true "dms/colors.kdl"
+      include optional=true "dms/layout.kdl"
+      include optional=true "dms/wpblur.kdl"
+      include optional=true "dms/windowrule.kdl"
+    '';
   };
 }

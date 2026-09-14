@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./helix.nix
     ./niri.nix
+    ./dms.nix
   ];
 
   stylix.enableReleaseChecks = false;
@@ -56,6 +57,16 @@
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+    };
+
+    pointerCursor = {
+      enable = true;
+
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+
+      gtk.enable = true;
     };
   };
 

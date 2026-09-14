@@ -50,23 +50,21 @@
   };
 
   services = {
-    greetd = {
+
+    displayManager.dms-greeter = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-user-session --cmd niri-session";
-          user = "greeter";
-        };
-      };
+      compositor.name = "niri";
+      configHome = "/home/degartil";
     };
+    power-profiles-daemon.enable = true;
     upower = {
       enable = true;
 
       usePercentageForPolicy = true;
 
-      percentageLow = 50;
-      percentageCritical = 30;
-      percentageAction = 25;
+      percentageLow = 30;
+      percentageCritical = 20;
+      percentageAction = 15;
 
       allowRiskyCriticalPowerAction = true;
       criticalPowerAction = "Suspend";
@@ -80,6 +78,7 @@
 
   programs = {
     niri.enable = true;
+    dms-shell.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -108,7 +107,6 @@
       git
       git-lfs
       uutils-coreutils-noprefix
-      bluetui
       podman-compose
       qemu
       virt-manager
@@ -139,7 +137,6 @@
     isNormalUser = true;
     extraGroups = [
       "wheel"
-      "docker"
       "networkmanager"
       "power"
       "video"
