@@ -124,6 +124,7 @@
         zrs = "zellij run --stacked --";
         zrn = "zellij run --no-focus --";
         zc = "zellij run --stacked -- opencode";
+        zd = "zellij delete-session";
         nd = "nix develop -c nu";
       };
     };
