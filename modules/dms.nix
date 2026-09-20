@@ -4,8 +4,62 @@ let
 
     currentThemeName = "dynamic";
     currentThemeCategory = "dynamic";
+    clockFormat = "24h";
 
     controlCenterShowMicPercent = true;
+
+    controlCenterWidgets = [
+      {
+        id = "volumeSlider";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "brightnessSlider";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "inputVolumeSlider";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "wifi";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "bluetooth";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "audioOutput";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "audioInput";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "nightMode";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "darkMode";
+        enabled = true;
+        width = 50;
+      }
+      {
+        id = "doNotDisturb";
+        enabled = true;
+        width = 50;
+      }
+    ];
 
     showWorkspaceName = true;
     showWorkspacePadding = true;
@@ -17,11 +71,19 @@ let
       apps = "list";
     };
 
+    niriOverviewLauncherStyle = "spotlight";
     launcherUseOverlayLayer = true;
+    launcherStyle = "island";
     spotlightBarShowModeChips = true;
+    useAutoLocation = true;
+
+    iconThemeDark = "Colloid-Dark";
+    iconThemeLight = "Colloid-Light";
+    iconThemePerMode = true;
 
     launcherLogoMode = "os";
     launcherLogoColorOverride = "primary";
+    launcherLogoSizeOffset = 9;
 
     textRenderType = 1;
 
@@ -75,18 +137,22 @@ let
 
         leftWidgets = [
           {
-            id = "launcherButton";
+            id = "workspaceSwitcher";
             enabled = true;
           }
           {
             id = "privacyIndicator";
             enabled = true;
           }
+          {
+            id = "launcherButton";
+            enabled = true;
+          }
         ];
 
         centerWidgets = [
           {
-            id = "workspaceSwitcher";
+            id = "launcherButton";
             enabled = true;
           }
           {
@@ -110,10 +176,6 @@ let
           }
           {
             id = "clipboard";
-            enabled = true;
-          }
-          {
-            id = "notificationButton";
             enabled = true;
           }
           {
@@ -152,8 +214,7 @@ let
         fontScale = 1;
         iconScale = 1;
 
-        autoHide = true;
-        autoHideDelay = 250;
+        autoHide = false;
 
         showOnWindowsOpen = true;
         openOnOverview = true;
@@ -175,7 +236,60 @@ let
         hoverPopouts = true;
         hoverPopoutDelay = 150;
 
-        island = false;
+        island = true;
+
+        islandFloating = false;
+        islandHomeCompactTight = false;
+        islandHomeLayout = [
+          {
+            id = "media";
+            enabled = true;
+          }
+          {
+            id = "clock";
+            enabled = true;
+          }
+          {
+            id = "weather";
+            enabled = false;
+          }
+          {
+            id = "status";
+            enabled = false;
+          }
+          {
+            id = "volume";
+            enabled = false;
+          }
+          {
+            id = "brightness";
+            enabled = false;
+          }
+          {
+            id = "notifications";
+            enabled = true;
+          }
+        ];
+        islandSatelliteBackground = true;
+        islandSatellitesEnabled = true;
+        islandSatellitePosition = "edges";
+        islandNotificationExpand = true;
+        islandHighContrast = false;
+        islandCornerRadius = 38;
+        islandBatteryStyle = "solid";
+        islandSatelliteTransparency = 1;
+        islandInteractionMode = "hybrid";
+        islandHoverOpenDelay = 150;
+        islandHoverCloseDelay = 150;
+        islandMediaClockVisible = true;
+        islandPalette = "default";
+        islandReserveThickness = 40;
+        islandAlongOffset = 0;
+        islandHomeClockDisplay = "time";
+        islandSatelliteSwoopRadius = 15;
+        islandSatelliteGothCorners = true;
+        islandCompactThickness = 35;
+        islandOuterGap = 4;
       }
     ];
 
@@ -184,6 +298,10 @@ let
       dms_clipboard_search.trigger = "cb";
       dms_power.trigger = "pw";
       dms_qr_generator.trigger = "qrg";
+    };
+
+    launcherPluginVisibility = {
+      dms_settings_search.allowWithoutTrigger = false;
     };
 
     configVersion = 18;
