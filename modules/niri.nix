@@ -36,10 +36,26 @@ in
           dwt = { };
           scroll-method = "two-finger";
         };
-
-        warp-mouse-to-focus = { };
       };
 
+      animations = {
+        window-open = {
+          duration-ms = 220;
+          curve = "ease-out-expo";
+        };
+
+        window-close = {
+          duration-ms = 220;
+          curve = "ease-out-quad";
+        };
+
+        workspace-switch.off = { };
+
+        horizontal-view-movement = {
+          duration-ms = 80;
+          curve = "ease-out-cubic";
+        };
+      };
       layout = {
         gaps = 10;
         center-focused-column = "never";
@@ -294,8 +310,6 @@ in
 
         "Mod+Shift+P".power-off-monitors = { };
       };
-
-      gestures.hot-corners.off = { };
 
       layer-rule = {
         match._props.namespace = "^quickshell$";
