@@ -6,7 +6,7 @@ keybinds clear-defaults=true {
     normal {
         bind "Alt c" {
             GoToTab 2
-            Run "codex" {
+            Run "opencode" {
                 stacked true
             }
         }

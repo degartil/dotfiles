@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   settings = {
 
@@ -278,7 +278,7 @@ let
         islandCornerRadius = 38;
         islandBatteryStyle = "solid";
         islandSatelliteTransparency = 1;
-        islandInteractionMode = "hybrid";
+        islandInteractionMode = "click";
         islandHoverOpenDelay = 150;
         islandHoverCloseDelay = 150;
         islandMediaClockVisible = true;

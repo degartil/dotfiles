@@ -123,8 +123,7 @@
         zrf = "zellij run --floating --";
         zrs = "zellij run --stacked --";
         zrn = "zellij run --no-focus --";
-        zc = "zellij run --stacked -- codex";
-        zoc = "zellij run --stacked -- opencode";
+        zc = "zellij run --stacked -- opencode";
         nd = "nix develop -c nu";
       };
     };
@@ -138,7 +137,6 @@
       };
     };
   };
-
 
   home.stateVersion = "26.05";
 }

@@ -14,7 +14,7 @@ layout {
     }
 
     tab name="agents" {
-        pane command="codex" start_suspended=true
+        pane command="opencode" start_suspended=true
     }
 
     tab name="runners" {
