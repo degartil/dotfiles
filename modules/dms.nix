@@ -95,12 +95,13 @@ let
 
     soundLogin = true;
     acMonitorTimeout = 600;
-    acProfileName = "0";
+    acProfileName = "2";
     acPostLockMonitorTimeout = 60;
     lockBeforeSuspend = true;
     batteryCriticalThreshold = 20;
     batteryLowThreshold = 30;
     batteryNotifyLow = true;
+    batteryAutoPowerSaver = true;
 
     muxType = "zellij";
 
@@ -233,7 +234,7 @@ let
 
         shadowIntensity = 0;
 
-        hoverPopouts = true;
+        hoverPopouts = false;
         hoverPopoutDelay = 150;
 
         island = true;
