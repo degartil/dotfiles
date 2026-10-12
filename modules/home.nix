@@ -67,6 +67,7 @@
     bat.enable = true;
     eza.enable = true;
     thunderbird.enable = true;
+    gh.enable = true;
     git = {
       enable = true;
       settings = {
