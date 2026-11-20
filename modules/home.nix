@@ -1,5 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
+let
+  opencode = inputs.opencode.packages.${pkgs.system}.opencode.overrideAttrs (_: {
+    src = inputs.opencode.outPath;
+  });
+in
 {
   imports = [
     ./alacritty.nix
@@ -36,7 +41,6 @@
       vlc
       ripdrag
       opencode
-      libreoffice
 
       dust
       p7zip

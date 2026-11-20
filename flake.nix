@@ -10,6 +10,9 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode = {
+      url = "github:sst/opencode/v2.0.28";
+    };
   };
 
   outputs =
