@@ -1,15 +1,22 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
+  nix = {
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    registry.nixpkgs.flake = inputs.nixpkgs;
+  };
   boot = {
     loader = {
       systemd-boot = {
@@ -21,7 +28,6 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
-      systemd.enable = true;
       luks.devices."root" = {
         device = "/dev/disk/by-label/CRYPTONIX";
         keyFile = "/dev/disk/by-partlabel/NIXOS_KEY";
@@ -31,6 +37,17 @@
     };
   };
 
+  systemd.services.battery-charge-limit = {
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold
+    '';
+  };
   zramSwap = {
     enable = true;
     memoryPercent = 80;
@@ -109,6 +126,7 @@
       alsa.enable = true;
       pulse.enable = true;
     };
+    journald.settings.Journal.SystemMaxUse = "1G";
   };
 
   programs = {
@@ -129,7 +147,10 @@
       powerOnBoot = true;
     };
   };
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
 
   security = {
     sudo-rs.enable = true;
@@ -163,11 +184,12 @@
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
-    libvirtd.enable = true;
+    libvirtd.enable = false;
     spiceUSBRedirection.enable = true;
   };
   home-manager = {
     useGlobalPkgs = true;
+    extraSpecialArgs = { inherit inputs; };
     users.degartil = {
       imports = [ ../../modules/home.nix ];
     };
@@ -184,6 +206,8 @@
     ];
     shell = pkgs.nushell;
   };
+  nixpkgs.config.allowUnfree = true;
+  programs.steam.enable = true;
 
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 }
