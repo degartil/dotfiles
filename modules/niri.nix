@@ -194,7 +194,7 @@ in
         };
 
         "Mod+B".spawn = [
-          (exe pkgs.brave-origin)
+          (exe pkgs.brave)
         ];
 
         "Mod+T".spawn = [

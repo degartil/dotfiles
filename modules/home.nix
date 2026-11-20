@@ -35,7 +35,7 @@ in
       zathura
       nautilus
 
-      brave-origin
+      brave
       cmake
       gnumake
       vlc
